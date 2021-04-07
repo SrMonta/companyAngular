@@ -1,0 +1,68 @@
+<mat-card style="margin: 10px">
+<div class="table">
+    <mat-form-field style="padding-left: 20px;">
+        <mat-label>Filtro</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. 10:00" #input>
+      </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
+        <ng-container matColumnDef="sala">
+            <th mat-header-cell *matHeaderCellDef>SALA</th>
+            <td mat-cell *matCellDef="let element">{{ element.sala }}</td>            
+        </ng-container>
+        <ng-container matColumnDef="hora">
+            <th mat-header-cell *matHeaderCellDef>HORA</th>
+            <td mat-cell *matCellDef="let element">{{ element.hora }}</td>            
+        </ng-container>
+        <ng-container matColumnDef="numero_horas">
+            <th mat-header-cell *matHeaderCellDef>DURACION (H)</th>
+            <td mat-cell *matCellDef="let element">{{ element.numero_horas }}</td>            
+        </ng-container>
+        <ng-container matColumnDef="descripcion">
+            <th mat-header-cell *matHeaderCellDef>DESCRIPCION</th>
+            <td mat-cell *matCellDef="let element">{{ element.descripcion }}</td>
+        </ng-container>
+        
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>ACTIONS</th>
+            <td mat-cell *matCellDef>
+                <button mat-button>EDIT <mat-icon class="mr">mode_edit</mat-icon></button>
+                <button mat-button>DELETE <mat-icon class="mr">delete</mat-icon></button>
+            </td>
+          </ng-container>
+    
+
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+        <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+        <div class="example-element-detail"
+            [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+            <div>
+            <div>Sala: {{element.sala}} </div>
+            <div>Hora: {{element.hora}} </div>
+            <div>Nº horas: {{element.numero_horas}} </div>
+            <div>Descripcion: {{element.descripcion}}</div>
+            <button mat-button style="margin: 10px">Edit <mat-icon class="mr">mode_edit</mat-icon></button>
+            <button mat-button color="warn">Delete<mat-icon class="mr">delete</mat-icon></button>
+            </div>   
+        </div>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay sticky: true"></tr>
+    <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10]"></mat-paginator>
+</div>
+
+</mat-card>

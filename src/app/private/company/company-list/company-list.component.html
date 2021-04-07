@@ -1,0 +1,32 @@
+<div style="margin: auto; padding: 10px;">
+<h3>COMPANIES LIST</h3>
+<div fxLayout="row wrap" fxLayoutGap="16px grid" class="companies">
+  <div fxFlex="30%"  fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let company of companies">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>{{ company.cName }}</mat-card-title>
+        <mat-card-subtitle>{{ company.address }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-action>
+        <button mat-button [routerLink]="['/company', company.cName]">Details</button>
+        <!--
+        <button mat-icon-button color="warn" (click)="deleteCompany(company.cName)" style="float: right" title="Delete {{ company.cName }}">
+          <mat-icon>delete</mat-icon>
+        </button>
+        -->
+        <button mat-icon-button color="warn" (click)="confirmDelete(company.cName)" style="float: right" *ngIf="this.authService.isAdmin">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-action>
+    </mat-card>
+  </div>
+</div>
+<div>
+  <button mat-button routerLink="/company/new" style="margin: 10px;">
+    <mat-icon>add_circle_outline</mat-icon>
+    Add company
+  </button>
+</div>
+<button mat-button routerLink="/home" style="margin: 10px;"><mat-icon>keyboard_backspace</mat-icon>Go Back</button>
+</div>

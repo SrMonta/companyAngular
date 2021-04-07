@@ -1,0 +1,23 @@
+<form [formGroup]="signupForm" (ngSubmit)="signUp()">
+    <div>
+      <mat-card class="signup-container">
+      <h2>SIGNUP</h2>
+      <mat-form-field>
+        <mat-label>Enter username</mat-label>
+        <input matInput formControlName="username" type="text" placeholder="username">
+        <mat-error *ngIf="signupForm.invalid">{{getErrorMessageUsername()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Enter password</mat-label>
+        <input matInput formControlName="pwd" type="password" placeholder="password">
+        <mat-error *ngIf="signupForm.invalid">{{getErrorMessagePassword()}}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Enter email</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="example@example.com">
+        <mat-error *ngIf="signupForm.invalid">{{getErrorMessageEmail()}}</mat-error>
+      </mat-form-field>
+      <button mat-button type="submit" [disabled]="!signupForm.valid">Register</button>
+    </mat-card>
+    </div>
+  </form>

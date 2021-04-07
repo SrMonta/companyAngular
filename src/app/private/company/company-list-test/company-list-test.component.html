@@ -1,0 +1,63 @@
+<div style="text-align: center;"><h3>Booking room</h3></div>
+<div style="margin:auto; width: 400px;">
+<mat-card>
+<form [formGroup]="bookingForm">
+    <mat-vertical-stepper [linear]="true" #stepper>
+        <mat-step [stepControl]="this.bookingForm.get('day')">
+            <ng-template matStepLabel>Select the day <div>Day Selected: {{getDateSelected()}}</div></ng-template>
+            <mat-form-field appearance="fill">
+                <mat-label>Choose a day</mat-label>
+                <input matInput disabled [min]="minDate" [matDatepicker]="picker" formControlName="day" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker disabled="false"></mat-datepicker>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext (click)="next(this.datePipe.transform(this.bookingForm.get('day').value,'dd-MM-yyyy'))">Next</button>
+            </div>
+        </mat-step>
+        <mat-step [stepControl]="this.bookingForm.get('numero_horas') && this.bookingForm.get('hora')">
+            <ng-template matStepLabel>Select time
+                <div>Time Selected: {{this.bookingForm.get('hora').value}}</div>
+                <div>Number of hours selected: {{this.bookingForm.get('numero_horas').value}}</div>
+            </ng-template>
+            <div>
+                <mat-label>Select starting hour:</mat-label>
+            </div>
+            <div style="margin: 10px;">
+                <mat-chip-list formControlName="hora">
+                    <mat-chip *ngFor="let hour of hours" [disabled]="disabled(hour)" (click)="hourButtonSelected(hour)">{{hour}}</mat-chip> 
+                </mat-chip-list>
+            </div>
+            <div>
+                <mat-label style="margin-top:20px;margin-bottom: 10px;">Select number of hours</mat-label>
+            </div>
+            <div>
+                <mat-radio-group formControlName="numero_horas" required>
+                    <mat-radio-button value="1">1h</mat-radio-button>
+                    <br>
+                    <mat-radio-button value="2" [disabled]="maxHour(this.bookingForm.get('hora').value)">2h</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Resumen reserva</ng-template>
+            <h4>RESUMEN RESERVA</h4>
+            <p>
+                Fecha: {{this.datePipe.transform(this.bookingForm.get('day').value, 'dd-MM-yyyy')}}
+                Fecha sin formatear: {{this.bookingForm.get('day').value}}
+                <br>
+                Hora de inicio: {{ this.bookingForm.get('hora').value}}
+                <br>
+                Numero_horas: {{this.bookingForm.get('numero_horas').value}}
+            </p>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="test()">Confirmar reserva</button>
+        </mat-step>
+    </mat-vertical-stepper>
+</form>
+</mat-card>
+</div>

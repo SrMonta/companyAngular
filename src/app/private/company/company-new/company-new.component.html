@@ -1,0 +1,31 @@
+<form [formGroup]="newCompanyForm" (ngSubmit)="editCompany ? updateCompany() : createCompany()">
+    <div class="company-container">
+      <h3>CREATE COMPANY</h3>
+      <mat-form-field>
+        <mat-label>Company name</mat-label>
+        <input matInput formControlName="cName" type="text" placeholder="Company name">
+        <mat-error *ngIf="newCompanyForm.invalid">{{ getErrorMessageName() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Company's phone</mat-label>
+        <input matInput formControlName="phone" type="text" placeholder="Company's phone">
+        <mat-error *ngIf="newCompanyForm.invalid">{{ getErrorMessagePhone() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+          <mat-label>Company's address</mat-label>
+          <input matInput formControlName="address" type="text" placeholder="Company's address">
+          <mat-error *ngIf="newCompanyForm.invalid">{{ getErrorMessageAddress() }}</mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Company's email</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="example@example.com">
+        <mat-error *ngIf="newCompanyForm.invalid">{{ getErrorMessageEmail() }}</mat-error>
+      </mat-form-field>
+      <button mat-button type="submit" [disabled]="!newCompanyForm.valid">SAVE</button>
+    </div>
+  </form>
+  <div>
+    <button mat-button routerLink="/company">
+      <span class="material-icons">arrow_back</span>Go Back
+    </button>
+  </div>

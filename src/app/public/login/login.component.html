@@ -1,0 +1,20 @@
+<form [formGroup]="loginForm" (ngSubmit)="logIn()">
+    <div>
+        <mat-card class="login-container">
+        <h2>LOGIN</h2>
+        <mat-error *ngIf="this.loginFailed">User or password incorrect</mat-error>
+        <mat-form-field>
+            <mat-label>Enter username</mat-label>
+            <input matInput formControlName="username" type="text" placeholder="Username">
+            <mat-error *ngIf="loginForm.invalid">{{ getErrorMessageUsername() }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Enter password</mat-label>
+            <input matInput formControlName="pwd" type="password" placeholder="Password">
+            <mat-error *ngIf=loginForm.invalid>{{ getErrorMessagePassword() }}</mat-error>
+        </mat-form-field>
+        <button mat-button type="submit" [disabled]="!loginForm.valid">Login</button>
+        <a routerLink="/signup">New? Create an account!</a>
+    </mat-card>
+    </div>
+</form>

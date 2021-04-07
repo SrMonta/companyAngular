@@ -1,0 +1,19 @@
+mat-card {
+    margin: 20px;
+}
+
+mat-card-title {
+    text-align: center;
+}
+
+.container {
+    background-image: url('https://www.nypl.org/sites/default/files/bookcase-1280x720.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    height: 100hv;
+}
+
+.card-container {
+    background-color: rgba(255, 255, 255, 0.8);
+}
